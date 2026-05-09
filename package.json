@@ -1,0 +1,23 @@
+{
+  "name": "sh26frontend",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/ashrthms/SummitHack-2026-Frontend#readme",
+  "bugs": {
+    "url": "https://github.com/ashrthms/SummitHack-2026-Frontend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashrthms/SummitHack-2026-Frontend.git"
+  },
+  "license": "ISC",
+  "author": "Asher Thomas, Leo Bonequi, Ella Richardson",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react-router-dom": "^7.15.0"
+  }
+}
