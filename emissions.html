@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emissions & Cost | GridShift</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Average vs Your Emissions</h1>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="about.html">About Us</a>
+        <a href="heatmap.html">Renewable Heat Map</a>
+        <a href="impacts.html">Health Implications</a>
+      </nav>
+    </header>
+
+    <main class="card">
+      <p>
+        National average intensity: <strong>0.40 kg CO₂/kWh</strong>. Enter your usage and your local
+        intensity to compare your monthly footprint and estimated energy cost.
+      </p>
+
+      <form id="emissions-form">
+        <label>
+          Monthly usage (kWh)
+          <input id="usage" type="number" min="0" step="1" value="600" required />
+        </label>
+        <label>
+          Your grid intensity (kg CO₂/kWh)
+          <input id="intensity" type="number" min="0" step="0.01" value="0.45" required />
+        </label>
+        <label>
+          Price per kWh (USD)
+          <input id="price" type="number" min="0" step="0.01" value="0.18" required />
+        </label>
+        <button type="submit">Calculate</button>
+      </form>
+
+      <div id="results" class="results" aria-live="polite"></div>
+    </main>
+
+    <footer>Built for SummitHack 2026</footer>
+    <script src="script.js"></script>
+  </body>
+</html>
