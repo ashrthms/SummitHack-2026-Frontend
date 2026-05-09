@@ -4,11 +4,13 @@ export default function App() {
   const [message, setMessage] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  // Calls the Flask backend at /api/hello
+  const backendUrl = "http://localhost:5000";
+
+  // Calls Flask directly on its exposed port.
   async function callBackend() {
     setLoading(true);
     try {
-      const res = await fetch("/api/hello");
+      const res = await fetch(backendUrl + "/hello");
       const data = await res.json();
       setMessage(data.message);
     } catch (err) {
