@@ -1,7 +1,9 @@
 # SummitHack-2026-Frontend
 
+## Run with Docker
 
+```bash
+docker compose up --build
+```
 
-```
-npm install react-router-dom react 
-```
+Then open http://localhost:3000

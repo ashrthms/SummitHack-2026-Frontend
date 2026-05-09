@@ -1,9 +1,13 @@
 FROM node:lts-alpine
 
-WORKDIR /usr/app
-COPY package.json ./
-RUN npm install
-COPY . .
-EXPOSE 3000
+WORKDIR /app
 
-CMD ["node", "index.js"]
+COPY frontend/package*.json ./
+RUN npm ci
+
+COPY frontend/ ./
+RUN npm run build
+
+EXPOSE 4173
+
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "4173"]
