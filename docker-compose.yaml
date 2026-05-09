@@ -1,12 +1,7 @@
-
 services:
-  v1:
-    image: v1:latest
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
-      - 3000:3000
-    # environment:
-      # DB_URL: mongodb://root:example@mongo
-
-
-volumes:
-  mongo_data:
+      - "4173:80"
