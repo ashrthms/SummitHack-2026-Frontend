@@ -1,5 +1,0 @@
-*.test.js export-ignore
-*.test.jsx export-ignore
-*.snap export-ignore
-*/fonts/* export-ignore
-* text=auto eol=lf
