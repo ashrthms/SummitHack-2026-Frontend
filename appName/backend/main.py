@@ -22,7 +22,8 @@ def hello():
 
 @app.route("/email")
 def send_emails():
-    return jsonify(sendAllEmail()), 200
+    # sendAllEmail()
+    return jsonify({"message": "sending email"}), 200
 
 
 # ── Example: receive data from React ───────────────────────

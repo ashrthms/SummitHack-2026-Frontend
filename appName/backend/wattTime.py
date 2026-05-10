@@ -2,10 +2,9 @@ import requests
 from requests.auth import HTTPBasicAuth
 import os
 
-WATT_PASS = os.getenv("SECRET_KEY")
-
 
 def __get_api__():
+    WATT_PASS = os.getenv("SECRET_KEY")
     login_url = "https://api.watttime.org/login"
     rsp = requests.get(login_url, auth=HTTPBasicAuth("ella_f_richardson", "123!frogg"))
     TOKEN = rsp.json()["token"]
