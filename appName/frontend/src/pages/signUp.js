@@ -3,32 +3,44 @@ import { useToken } from "../token";
 
 
 export default function SignUp() {
-  const { token, loading, error, getToken, populateToken, clearToken} = useToken();
+  const { token, loading, error, getToken, populateToken, clearToken } = useToken();
   const [message, setMessage] = useState(null);
   const [newAccount, setNewAccount] = useState(token ? false : true);
+  const [success, setSuccess] = useState(false)
   const toggleNewAccount = () => setNewAccount(newAccount => !newAccount);
   const backendUrl = "http://localhost:5000";
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const password = document.getElementById('password').value;
     const email = document.getElementById('email').value;
-    getToken({
+    setSuccess(await getToken({
       "email": email,
       "password": password
-    })
+    }))
   };
-  const handleSignUp = () => {
+  const handleSignUp = async () => {
     const password = document.getElementById('password').value;
     const name = document.getElementById('name').value;
     const region = document.getElementById('region').value;
     const email = document.getElementById('email').value;
     // console.log(name,password,email,region);
-    populateToken({
+    setSuccess(await populateToken({
       "email": email,
       "name": name,
       "password": password,
       "region": region
-    })
+    }))
+  };
+
+  const handleEmailClick = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/email", {
+        method: "GET",
+      });
+      console.log("Response status:", res.status);
+    } catch (error) {
+      console.error("Email request failed:", error);
+    }
   };
 
   const loginInfoGather = (<>
@@ -39,7 +51,7 @@ export default function SignUp() {
         email="e"
         required
         minLength="4"
-        maxLength="16"
+        maxLength="40"
         size="100em"
         placeholder="Email" />
     </div>
@@ -50,7 +62,7 @@ export default function SignUp() {
         name="p"
         required
         minLength="4"
-        maxLength="16"
+        maxLength="40"
         size="10em"
         placeholder="Password" />
     </div>
@@ -71,7 +83,7 @@ export default function SignUp() {
         name="a"
         required
         minLength="4"
-        maxLength="16"
+        maxLength="40"
         size="10em"
         placeholder="Email" />
     </div>
@@ -82,7 +94,7 @@ export default function SignUp() {
         name="p"
         required
         minLength="4"
-        maxLength="16"
+        maxLength="40"
         size="10em"
         placeholder="Password" />
     </div>
@@ -93,7 +105,7 @@ export default function SignUp() {
         name="u"
         required
         minLength="4"
-        maxLength="16"
+        maxLength="40"
         size="10em"
         placeholder="Name" />
     </div>
@@ -104,13 +116,13 @@ export default function SignUp() {
         name="a"
         required
         minLength="4"
-        maxLength="16"
+        maxLength="40"
         size="10em"
         placeholder="Address">
-          <option value = "CAISO_NORTH">Northern California</option>
-          <option value = "haha">Seattle</option>
-          <option value = "nope">Los Angeles</option>
-        </select>
+        <option value="CAISO_NORTH">Northern California</option>
+        <option value="haha">Seattle</option>
+        <option value="nope">Los Angeles</option>
+      </select>
     </div>
     <>
 
@@ -119,18 +131,26 @@ export default function SignUp() {
       <button onClick={handleSignUp}>
         Sign Up
       </button>
-      {loading && <p>Loading...</p>}  
+      {loading && <p>Loading...</p>}
       {error && <p style={{ color: "red" }}>{error}</p>}
 
     </>
   </>)
 
   return (<>
-      <div className="card">
-        <h1>{newAccount ? "Log In" : "Sign Up"}</h1>
-        {newAccount ? loginInfoGather : signUpInfoGather}
-        <hr />
-        <button onClick={toggleNewAccount} className="secondaryButton">{newAccount ? "Sign Up" : "Log In"}</button>
-      </div>
+    <div className="card">
+      <h1>{newAccount ? "Log In" : "Sign Up"}</h1>
+      {newAccount ? loginInfoGather : signUpInfoGather}
+      <hr />
+      <button onClick={toggleNewAccount} className="secondaryButton">{newAccount ? "Sign Up" : "Log In"}</button>
+    </div>{success &&
+    <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+      <img
+        src="image.png"
+        alt="Email link"
+        onClick={handleEmailClick}
+        style={{ maxWidth: "160px", cursor: "pointer" }}
+      />
+    </div>}
   </>)
 }
