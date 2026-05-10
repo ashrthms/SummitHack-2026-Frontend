@@ -11,9 +11,9 @@ export default function SignUp() {
 
   const handleLogin = () => {
     const password = document.getElementById('password').value;
-    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
     getToken({
-      "name": name,
+      "email": password,
       "password": password
     })
   };
@@ -50,13 +50,13 @@ export default function SignUp() {
     <h1>Log In</h1>
     <>
       <input type="text"
-        id="name"
-        name="u"
+        id="email"
+        email="e"
         required
         minLength="4"
         maxLength="16"
         size="10em"
-        placeholder="Name" />
+        placeholder="Email" />
     </>
     <>
       <input type="text"
