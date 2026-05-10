@@ -41,6 +41,13 @@ def process_times(region):
         elif value != 0 and start is not None:
             intervals.append({"start": start, "end": entries[i - 1]["point_time"]})
             start = None
+        
+    # close any interval that runs to the end of the forecast
+    if start is not None:
+        intervals.append({
+            "start": start,
+            "end": entries[-1]["point_time"]
+        })
 
     intervals = [
         interval for interval in intervals if interval["start"] != interval["end"]
