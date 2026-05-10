@@ -1,0 +1,134 @@
+/* Global styles and theme variables */
+
+:root {
+  --bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
+  --page-bg-color: #ffffff;
+  --text: #0f172a;
+  --nav-bg: #1e293b;
+  --nav-text: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --border: rgba(148, 163, 184, 0.25);
+  --muted: #475569;
+  --primary: #2563eb;
+  --accent: #10b981;
+  --button-text: #ffffff;
+}
+
+[data-theme="dark"] {
+  --bg: linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
+  --page-bg-color: #0b1220;
+  --text: #e6eef8;
+  --nav-bg: #0b1220;
+  --nav-text: #e6eef8;
+  --card-bg: rgba(8, 12, 20, 0.6);
+  --border: rgba(255, 255, 255, 0.06);
+  --muted: #94a3b8;
+  --primary: #3b82f6;
+  --accent: #34d399;
+  --button-text: #0b1220;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "Courier New", Courier, monospace;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 20px;
+  background: var(--nav-bg);
+  color: var(--nav-text);
+  border-bottom: 1px solid var(--border);
+}
+
+nav a {
+  padding: 8px 12px;
+  border-radius: 999px;
+  transition: background-color 0.18s ease, transform 0.12s ease;
+  color: var(--nav-text);
+}
+
+nav a:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-1px);
+}
+
+nav .spacer {
+  margin-left: auto;
+}
+
+nav .theme-toggle {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--button-text);
+  font-weight: 600;
+}
+
+main,
+.page,
+.content,
+.card {
+  max-width: 900px;
+  margin: 20px auto;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.06);
+  padding: 20px;
+}
+
+.card > h1 {
+    text-align:center;
+}
+
+button {
+  font: inherit;
+}
+
+button:hover {
+  filter: brightness(1.03);
+}
+
+.data {
+  font-family: "Bebas Neue", Impact, sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.passive {
+  font-family: "Courier New", Courier, monospace;
+  color: var(--muted);
+}
+
+.aggressive {
+  font-family: "Impact", "Arial Black", sans-serif;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #b91c1c;
+}
