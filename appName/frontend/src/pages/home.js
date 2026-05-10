@@ -1,3 +1,4 @@
+import img from "../heatmap.png";
 // import { useState } from "react";
 
 // export default function Home() {
@@ -371,7 +372,7 @@ export default function Home() {
           boxShadow: "0 10px 24px rgba(2,6,23,0.10)",
         }}>
           <img
-            src="/heatmap.png"
+            src={img}
             alt="Heatmap of renewable energy generation across the continental United States"
             style={{
               width: "100%",
