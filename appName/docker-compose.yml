@@ -15,12 +15,14 @@ services:
     ports:
      - "5000:5000"
     build: ./backend
+    env_file:
+      - ./backend/.env
     volumes:
       - ./backend:/app
+      - ./data:/data
     environment:
       - FLASK_ENV=development
-    # Add your secret API keys here, e.g:
-    # - OPENAI_API_KEY=your_key_here
+      - DB_PATH=/data/app.db
 
   nginx:
     image: nginx:alpine
@@ -31,3 +33,6 @@ services:
     depends_on:
       - frontend
       - backend
+
+volumes:
+  data: {}
