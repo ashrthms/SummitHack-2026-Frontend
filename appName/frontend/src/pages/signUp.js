@@ -24,11 +24,12 @@ export default function SignUp() {
     const email = document.getElementById('email').value;
     console.log(name,password,email,region);
     populateToken({
+      "email": email,
       "name": name,
       "password": password,
-      "region": region,
-      "email": email
+      "region": region
     })
+    {console.log("error: ", error)}
   };
 
   async function getCoords(address) {
@@ -73,7 +74,7 @@ export default function SignUp() {
         Log In
       </button>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error.message || String(error)}</p>}
+      {error && <p style={{ color: "red" }}>{error.error}</p>}
 
     </>
   </>)
@@ -90,16 +91,6 @@ export default function SignUp() {
     </>
     <>
       <input type="text"
-        id="password"
-        name="p"
-        required
-        minLength="4"
-        maxLength="16"
-        size="10em"
-        placeholder="Password" />
-    </>
-    <>
-      <input type="text"
         id="email"
         name="a"
         required
@@ -107,6 +98,16 @@ export default function SignUp() {
         maxLength="16"
         size="10em"
         placeholder="Email" />
+    </>
+    <>
+      <input type="text"
+        id="password"
+        name="p"
+        required
+        minLength="4"
+        maxLength="16"
+        size="10em"
+        placeholder="Password" />
     </>
     <>
       <label>Choose a Region:</label>

@@ -27,7 +27,6 @@ export function useToken() {
     setLoading(true);
     setError(null);
     try {
-      console.log('alksjdslj');
       const res = await fetch(backendUrl + "/login", {
         method: "POST",
         headers: {
@@ -63,6 +62,7 @@ export function useToken() {
 
         });
         const data = await res.json();
+        setError(data?.error)
         newToken = data.token || null
     } catch (err) {
         console.log("Error fetching token: ", err);

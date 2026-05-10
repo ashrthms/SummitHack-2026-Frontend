@@ -16,19 +16,19 @@ CORS(app)  # Allows React to call this API
 # Visit http://localhost/hello  →  { "message": "Hello from Flask!" }
 @app.route("/hello")
 def hello():
-    return jsonify({"message": "Hello from Flask!"})
+    return jsonify({"message": "Hello from Flask!"}), 200
 
 
 # ── Example: receive data from React ───────────────────────
 @app.route("/echo", methods=["POST"])
 def echo():
     data = request.get_json()
-    return jsonify({"you_sent": data})
+    return jsonify({"you_sent": data}), 200
 
 
 @app.route("/data")  # TODO: remove this
 def data():
-    return jsonify({"database exists": table_exists()})
+    return jsonify({"database exists": table_exists()}), 200
 
 
 @app.route("/login", methods=["POST"])
@@ -40,10 +40,10 @@ def login():
 
     try:
         token = login_user(email, password)
-    except InvalidKeyError as e:
+    except (InvalidKeyError, InvalidTokenError) as e:
         return jsonify({"error": str(e)}), 401
 
-    return jsonify({"token": token})
+    return jsonify({"token": token}), 200
 
 
 @app.route("/create-user", methods=["POST"])
@@ -57,7 +57,7 @@ def create_user():
         response = add_user(name, email, password, region)
     except InvalidIssuedAtError as e:
         return jsonify({"error": str(e)}), 401
-    return jsonify(response)
+    return jsonify(response), 200
 
 
 @app.route("/show-user", methods=["Post"])  # TODO: remove this
@@ -76,7 +76,7 @@ def show_user():
             "email": user.get("email"),
             "region": user.get("region"),
         }
-    )
+    ), 200
 
 
 # ── Add your own routes below ───────────────────────────────
