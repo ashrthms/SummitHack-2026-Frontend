@@ -174,7 +174,7 @@ def add_user(name: str, email: str, password: str, region: str):
             email,
             region,
             password_hash,
-            0,
+            2193,
         ),
     )
 
