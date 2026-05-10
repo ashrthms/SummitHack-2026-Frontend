@@ -11,7 +11,7 @@ import bcrypt
 
 DB_PATH = os.environ.get("DB_PATH", "/data/app.db")
 TABLE_NAME = "users"
-SECRET_KEY = "secret"  # TODO: fix this
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
 
 
