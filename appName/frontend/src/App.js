@@ -4,7 +4,7 @@ import About from "./pages/about";
 import SignUp from "./pages/signUp";
 import ImpactCalculator from "./pages/impactCalculator";
 import { useState } from "react";
-import "./styles.css";
+//import "./styles.css";
 
 export default function App() {
   return (

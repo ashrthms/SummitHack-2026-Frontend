@@ -30,8 +30,8 @@ def init_db():
         CREATE TABLE IF NOT EXISTS users (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
-            email TEXT
-            region TEXT
+            email TEXT,
+            region TEXT,
             password_hash TEXT
         )
     """
@@ -85,7 +85,7 @@ def __get_user_by_id__(user_id):
     cur = conn.cursor()
 
     cur.execute(
-        "SELECT id, name, email, region, FROM users WHERE id = ?",
+        "SELECT user_id, name, email, region FROM users WHERE user_id = ?",
         (user_id,),
     )
 
@@ -121,7 +121,7 @@ def add_user(name: str, email: str, password: str, region: str):
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
 
-    cur.execute("SELECT id FROM users WHERE email = ?", (email,))
+    cur.execute("SELECT user_id FROM users WHERE email = ?", (email,))
     existing = cur.fetchone()
 
     if existing:
