@@ -1,4 +1,4 @@
-from db import add_user, get_user, init_db, login_user, table_exists
+from db import add_user, get_user, init_db, login_user, table_exists, update_emmisions
 from display_data import avg_daily_emission, avg_daily_health_impact
 from send_email import sendAllEmail
 from wattTime import __get_api__
@@ -19,6 +19,7 @@ CORS(app)
 # Visit http://localhost/hello  →  { "message": "Hello from Flask!" }
 @app.route("/hello")
 def hello():
+    update_emmisions("ldbonequi@gmail.com", 2193)
     return jsonify({"message": "Hello from Flask!"}), 200
 
 
