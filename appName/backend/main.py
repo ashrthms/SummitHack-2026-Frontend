@@ -1,5 +1,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import user_location
+import nudge_user
 
 app = Flask(__name__)
 CORS(app)  # Allows React to call this API
@@ -16,22 +18,15 @@ def echo():
     data = request.get_json()
     return jsonify({"you_sent": data})
 
-# -- import Watt Time API
+# -- get API token --
 import requests
-
-# get API token 
 from requests.auth import HTTPBasicAuth
 login_url = 'https://api.watttime.org/login'
 rsp = requests.get(login_url, auth=HTTPBasicAuth('ella_f_richardson', '123!frogg'))
 TOKEN = rsp.json()['token']
 
-# Test to get region give latitude and longitude
-url = "https://api.watttime.org/v3/region-from-loc"
-headers = {"Authorization": f"Bearer {TOKEN}"}
-params = {"latitude": "42.372", "longitude": "-72.519", "signal_type": "co2_moer"}
-response = requests.get(url, headers=headers, params=params)
-response.raise_for_status()
-print(response.json())
+nudge_user.process_times("CAISO_NORTH", TOKEN)
+
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
