@@ -45,7 +45,7 @@ def avg_daily_emission(region, TOKEN):
 
     return round(avg_total_emissions, 2)
 
-# -- average daily emissions --
+# -- average daily health impact --
 
 # user impact over the past day of health cost of local population
 # => this is the amount saved by a user by scheduling their appliances
