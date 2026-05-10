@@ -1,10 +1,7 @@
 from flask import Flask, jsonify, request
-from flask_cors import CORS
-import user_location
-import nudge_user
 
 app = Flask(__name__)
-CORS(app)  # Allows React to call this API
+
 
 # ── Example route ──────────────────────────────────────────
 # Visit http://localhost/api/hello  →  { "message": "Hello from Flask!" }
@@ -12,20 +9,15 @@ CORS(app)  # Allows React to call this API
 def hello():
     return jsonify({"message": "Hello from Flask!"})
 
+
 # ── Example: receive data from React ───────────────────────
 @app.route("/echo", methods=["POST"])
 def echo():
     data = request.get_json()
     return jsonify({"you_sent": data})
 
-# -- get API token --
-import requests
-from requests.auth import HTTPBasicAuth
-login_url = 'https://api.watttime.org/login'
-rsp = requests.get(login_url, auth=HTTPBasicAuth('ella_f_richardson', '123!frogg'))
-TOKEN = rsp.json()['token']
 
-print(nudge_user.process_times("CAISO_NORTH", TOKEN))
+# -- get API token --
 
 
 if __name__ == "__main__":

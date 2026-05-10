@@ -5,10 +5,14 @@ import requests
 
 # -- user data --
 
+
 def user_health_impact(region, date):
     return
 
+
 # -- avg data --
+
 
 def avg_health_impact(region, date):
     return
+
