@@ -16,7 +16,7 @@ DAILY_SHIFTABLE_KWH = sum(SHIFTABLE_KWH.values())
 
 # -- average daily emissions --
 
-# avg emissions spent on schedulable appliances every day
+# user saved emissions due to schedulable appliances
 # => this is the amount saved by a user by scheduling their appliances
 def avg_daily_emission(region, TOKEN):
     url = "https://api.watttime.org/v3/historical"
@@ -45,18 +45,18 @@ def avg_daily_emission(region, TOKEN):
 
     return round(avg_total_emissions, 2)
 
-# -- average daily emissions --
+# -- average daily health impact --
 
-# avg emissions spent on schedulable appliances every day
+# user impact over the past day of health cost of local population
 # => this is the amount saved by a user by scheduling their appliances
-def avg_daily_emission(region, TOKEN):
+def avg_daily_health_impact(region, TOKEN):
     url = "https://api.watttime.org/v3/historical"
     headers = {"Authorization": f"Bearer {TOKEN}"}
     params = {
         "region": region,
         "start": "2026-05-08T00:00+00:00",
         "end": "2026-05-10T00:00+00:00",
-        "signal_type": "co2_moer",
+        "signal_type": "health_damage",
     }
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()
@@ -64,7 +64,7 @@ def avg_daily_emission(region, TOKEN):
     entries = data["data"]
 
     sum_values = 0
-    avg_total_emissions = 0
+    avg_total_impact = 0
     count = 0
 
     for i, entry in enumerate(entries):
@@ -72,6 +72,7 @@ def avg_daily_emission(region, TOKEN):
         sum_values += value
         count += 1
 
-    avg_total_emissions = (sum_values / count) * DAILY_SHIFTABLE_KWH / 1000
+    avg_total_impact = (sum_values / count) * DAILY_SHIFTABLE_KWH / 1000
 
-    return round(avg_total_emissions, 2)
+    return round(avg_total_impact, 2)
+
