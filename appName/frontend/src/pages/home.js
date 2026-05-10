@@ -164,7 +164,7 @@ export default function Home() {
           maxWidth: 640,
         }}>
           Power
-          <span style={{ color: "var(--primary)" }}>Cueue</span>
+          <span style={{ color: "var(--primary)" }}>Cue</span>
         </h1>
 
         <p className="passive" style={{
