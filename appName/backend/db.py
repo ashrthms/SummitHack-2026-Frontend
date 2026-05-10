@@ -58,7 +58,7 @@ def table_exists():
     return exists
 
 
-def create_token(user_id):
+def __create_token__(user_id):
     payload = {
         "user_id": user_id,
         "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=1),
@@ -76,7 +76,7 @@ def __decode_token__(token: str):
 def get_user(token: str):
     user_id = __decode_token__(token)["user_id"]
     if not user_id:
-        raise InvalidTokenError("token does not contain a user id")
+        raise InvalidTokenError("Invalid token")
     return __get_user_by_id__(user_id)
 
 
@@ -93,7 +93,7 @@ def __get_user_by_id__(user_id):
     conn.close()
 
     if row is None:
-        raise InvalidKeyError("invalid user_id")
+        raise InvalidKeyError("There is no user with that user id")
 
     return dict(row)
 
@@ -102,19 +102,21 @@ def login_user(email, password):
     conn = get_connection()
     cur = conn.cursor()
 
-    cur.execute("SELECT password_hash FROM users WHERE email = ?", (email,))
+    cur.execute("SELECT user_id, password_hash FROM users WHERE email = ?", (email,))
 
     user = cur.fetchone()
     conn.close()
 
     if user is None:
-        return None
+        raise InvalidTokenError("There is no account under that email address")
 
     stored_hash = user["password_hash"].encode("utf-8")
     password_bytes = password.encode("utf-8")
 
     if not bcrypt.checkpw(password_bytes, stored_hash):
-        raise InvalidKeyError("bad password")
+        raise InvalidKeyError("Incorrect password")
+
+    return __create_token__(user["user_id"])
 
 
 def add_user(name: str, email: str, password: str, region: str):
@@ -126,7 +128,9 @@ def add_user(name: str, email: str, password: str, region: str):
 
     if existing:
         conn.close()
-        raise InvalidIssuedAtError("user already exists")
+        raise InvalidIssuedAtError(
+            "There is already an account using that email address"
+        )
 
     password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode(
         "utf-8"
@@ -145,5 +149,5 @@ def add_user(name: str, email: str, password: str, region: str):
     conn.close()
 
     return {
-        "token": create_token(user_id),
+        "token": __create_token__(user_id),
     }

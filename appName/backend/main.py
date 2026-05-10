@@ -41,7 +41,7 @@ def login():
     try:
         token = login_user(email, password)
     except InvalidKeyError as e:
-        return jsonify({"error": e}), 401
+        return jsonify({"error": str(e)}), 401
 
     return jsonify({"token": token})
 
@@ -56,7 +56,7 @@ def create_user():
     try:
         response = add_user(name, email, password, region)
     except InvalidIssuedAtError as e:
-        return jsonify({"error": e}), 401
+        return jsonify({"error": str(e)}), 401
     return jsonify(response)
 
 
@@ -67,7 +67,7 @@ def show_user():
     try:
         user = get_user(token)
     except (InvalidTokenError, ExpiredSignatureError, InvalidIssuedAtError) as e:
-        return jsonify({"error": e}), 401
+        return jsonify({"error": str(e)}), 401
 
     return jsonify(
         {
