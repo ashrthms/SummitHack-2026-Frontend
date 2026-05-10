@@ -417,7 +417,7 @@ export default function Home() {
           >
             WattTime
           </a>.
-          Map updates every 5 minutes.
+        
         </p>
       </div>
 
