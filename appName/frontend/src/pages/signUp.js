@@ -22,84 +22,29 @@ export default function SignUp() {
     const name = document.getElementById('name').value;
     const region = document.getElementById('region').value;
     const email = document.getElementById('email').value;
-    console.log(name,password,email,region);
+    // console.log(name,password,email,region);
     populateToken({
       "email": email,
       "name": name,
       "password": password,
       "region": region
     })
-    {console.log("error: ", error)}
   };
 
-  async function getCoords(address) {
-    const url = `https://openstreetmap.org{encodeURIComponent(address)}`;
-    
-    const response = await fetch(url);
-    const data = await response.json();
-    
-    if (data.length > 0) {
-      console.log(`Lat: ${data[0].lat}, Lon: ${data[0].lon}`);
-    } else {
-      console.log("No results found");
-    }
-  }
-
-
-
   const loginInfoGather = (<>
-    <h1>Log In</h1>
-    <>
+    <div className="miniCard">
+      <label>Email:</label>
       <input type="text"
         id="email"
         email="e"
         required
         minLength="4"
         maxLength="16"
-        size="10em"
+        size="100em"
         placeholder="Email" />
-    </>
-    <>
-      <input type="text"
-        id="password"
-        name="p"
-        required
-        minLength="4"
-        maxLength="16"
-        size="10em"
-        placeholder="Pasword" />
-    </>
-    <>
-      <button onClick={handleLogin}>
-        Log In
-      </button>
-      {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error.error}</p>}
-
-    </>
-  </>)
-  const signUpInfoGather = (<>
-    <>
-      <input type="text"
-        id="name"
-        name="u"
-        required
-        minLength="4"
-        maxLength="16"
-        size="10em"
-        placeholder="Name" />
-    </>
-    <>
-      <input type="text"
-        id="email"
-        name="a"
-        required
-        minLength="4"
-        maxLength="16"
-        size="10em"
-        placeholder="Email" />
-    </>
-    <>
+    </div>
+    <div className="miniCard">
+      <label>Password:</label>
       <input type="text"
         id="password"
         name="p"
@@ -108,8 +53,51 @@ export default function SignUp() {
         maxLength="16"
         size="10em"
         placeholder="Password" />
-    </>
+    </div>
     <>
+      <button onClick={handleLogin}>
+        Log In
+      </button>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
+    </>
+  </>)
+  const signUpInfoGather = (<>
+    <div className="card">
+      <label>Email:</label>
+      <input type="text"
+        id="email"
+        name="a"
+        required
+        minLength="4"
+        maxLength="16"
+        size="10em"
+        placeholder="Email" />
+    </div>
+    <div className="card">
+      <label>Password:</label>
+      <input type="text"
+        id="password"
+        name="p"
+        required
+        minLength="4"
+        maxLength="16"
+        size="10em"
+        placeholder="Password" />
+    </div>
+    <div className="card">
+      <label>Name:</label>
+      <input type="text"
+        id="name"
+        name="u"
+        required
+        minLength="4"
+        maxLength="16"
+        size="10em"
+        placeholder="Name" />
+    </div>
+    <div className="card">
       <label>Choose a Region:</label>
       <select
         id="region"
@@ -123,7 +111,7 @@ export default function SignUp() {
           <option value = "haha">Seattle</option>
           <option value = "nope">Los Angeles</option>
         </select>
-    </>
+    </div>
     <>
 
     </>
@@ -132,17 +120,17 @@ export default function SignUp() {
         Sign Up
       </button>
       {loading && <p>Loading...</p>}  
-      {error && <p style={{ color: "red" }}>{error.message || String(error)}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
 
     </>
   </>)
 
   return (<>
       <div className="card">
-        {newAccount ? "Log In" : "Sign Up"}
+        <h1>{newAccount ? "Log In" : "Sign Up"}</h1>
         {newAccount ? loginInfoGather : signUpInfoGather}
         <hr />
-        <button onClick={toggleNewAccount}>{newAccount ? "Sign Up" : "Log In"}</button>
+        <button onClick={toggleNewAccount} className="secondaryButton">{newAccount ? "Sign Up" : "Log In"}</button>
       </div>
   </>)
 }

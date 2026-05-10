@@ -1,31 +1,33 @@
 /* Global styles and theme variables */
 
 :root {
-  --bg: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-  --page-bg-color: #ffffff;
-  --text: #0f172a;
-  --nav-bg: #1e293b;
-  --nav-text: #ffffff;
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --border: rgba(148, 163, 184, 0.25);
-  --muted: #475569;
-  --primary: #2563eb;
-  --accent: #10b981;
+  --bg: radial-gradient(circle at 0% 0%, #fff6e8 0%, #eef8ff 46%, #f7f8fc 100%);
+  --page-bg-color: #fffdf9;
+  --text: #1f2937;
+  --nav-bg: rgba(255, 255, 255, 0.8);
+  --nav-text: #1f2937;
+  --card-bg: rgba(255, 255, 255, 0.92);
+  --border: rgba(148, 163, 184, 0.28);
+  --muted: #5b6475;
+  --less-muted: rgba(91, 100, 117, .6);
+  --primary: #0ea5a4;
+  --accent: #f59e0b;
   --button-text: #ffffff;
 }
 
 [data-theme="dark"] {
-  --bg: linear-gradient(180deg, #0f172a 0%, #0b1220 100%);
-  --page-bg-color: #0b1220;
-  --text: #e6eef8;
-  --nav-bg: #0b1220;
-  --nav-text: #e6eef8;
-  --card-bg: rgba(8, 12, 20, 0.6);
-  --border: rgba(255, 255, 255, 0.06);
-  --muted: #94a3b8;
-  --primary: #3b82f6;
-  --accent: #34d399;
-  --button-text: #0b1220;
+  --bg: radial-gradient(circle at 100% 0%, #172554 0%, #0b1120 45%, #05070f 100%);
+  --page-bg-color: #0b1120;
+  --text: #e5edf8;
+  --nav-bg: rgba(8, 12, 24, 0.8);
+  --nav-text: #e5edf8;
+  --card-bg: rgba(12, 18, 34, 0.72);
+  --border: rgba(148, 163, 184, 0.2);
+  --muted: #9fb0c9;
+  --less-muted: rgba(159, 176, 201, 0.6);
+  --primary: #22d3ee;
+  --accent: #fbbf24;
+  --button-text: #082f35;
 }
 
 * {
@@ -59,6 +61,7 @@ nav {
   background: var(--nav-bg);
   color: var(--nav-text);
   border-bottom: 1px solid var(--border);
+  backdrop-filter: blur(10px);
 }
 
 nav a {
@@ -69,7 +72,7 @@ nav a {
 }
 
 nav a:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(34, 211, 238, 0.16);
   transform: translateY(-1px);
 }
 
@@ -85,6 +88,7 @@ nav .theme-toggle {
   background: var(--primary);
   color: var(--button-text);
   font-weight: 600;
+  box-shadow: 0 6px 14px rgba(34, 211, 238, 0.32);
 }
 
 main,
@@ -99,8 +103,82 @@ main,
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(2, 6, 23, 0.06);
+  box-shadow: 0 10px 24px rgba(2, 6, 23, 0.12);
   padding: 20px;
+}
+
+/* Login / Sign-up layout polish */
+.card {
+  width: min(92vw, 560px);
+}
+
+.card > .miniCard,
+.card > .card {
+  width: 100%;
+  max-width: none;
+  margin: 12px 0;
+  padding: 14px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: none;
+}
+
+[data-theme="dark"] .card > .miniCard,
+[data-theme="dark"] .card > .card {
+  background: rgba(15, 23, 42, 0.45);
+}
+
+.card label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.card input,
+.card select {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--page-bg-color);
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card input:focus,
+.card select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.22);
+}
+
+.card > button {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  padding: 11px 14px;
+  margin-top: 10px;
+  background: var(--muted);
+  color: var(--button-text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.card > .secondaryButton {
+    background: var(--less-muted);
+}
+
+.card > hr {
+  margin: 16px 0 10px;
+  border: 0;
+  border-top: 1px solid var(--border);
+}
+
+.card p {
+  margin: 10px 0 0;
 }
 
 .card > h1 {
@@ -130,5 +208,5 @@ button:hover {
   font-family: "Impact", "Arial Black", sans-serif;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #b91c1c;
+  color: #dc2626;
 }

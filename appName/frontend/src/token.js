@@ -33,8 +33,12 @@ export function useToken() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(info),
+      }).catch(error => {
+          setError(error)
+          console.log("error: ", error);
       });
       const data = await res.json();
+      setError(data.error);
       return data.token || null;
     } catch (err) {
       console.log("Error fetching token: ", err);
@@ -47,23 +51,25 @@ export function useToken() {
 
   // Fetch token and store it
   const populateToken = async (info) => {
-    console.log(info);
+    // console.log("Fetching token with: ", info)
     let newToken;
-    console.log("Fetching token with info")
     setLoading(true);
     setError(null);
     try {
-        const res = await fetch(backendUrl + "/echo", {
+        const res = await fetch(backendUrl + "/create-user", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
         },
         body: JSON.stringify(info),
 
+        }).catch(error => {
+            setError(error);
+            console.log("error: ", error);
         });
         const data = await res.json();
-        setError(data?.error)
         newToken = data.token || null
+        setError(data.error);
     } catch (err) {
         console.log("Error fetching token: ", err);
         setError(err);
