@@ -1,3 +1,4 @@
+import img from "../heatmap.png";
 // import { useState } from "react";
 
 // export default function Home() {
@@ -163,7 +164,7 @@ export default function Home() {
           maxWidth: 640,
         }}>
           Power
-          <span style={{ color: "var(--primary)" }}>Cueue</span>
+          <span style={{ color: "var(--primary)" }}>Cue</span>
         </h1>
 
         <p className="passive" style={{
@@ -179,7 +180,7 @@ export default function Home() {
 
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
           <button
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/sign-up")}
             style={{
               padding: "12px 28px",
               borderRadius: 10,
@@ -263,7 +264,7 @@ export default function Home() {
           Sign in to see what your footprint looks like!
         </p>
         <button
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/sign-up")}
           style={{
             padding: "11px 26px",
             borderRadius: 10,
@@ -371,7 +372,7 @@ export default function Home() {
           boxShadow: "0 10px 24px rgba(2,6,23,0.10)",
         }}>
           <img
-            src="/heatmap.png"
+            src={img}
             alt="Heatmap of renewable energy generation across the continental United States"
             style={{
               width: "100%",
@@ -442,11 +443,11 @@ export default function Home() {
           maxWidth: 420,
           margin: "0 auto 28px",
         }}>
-          Sign up in seconds. No devices to connect, no data to enter —
-          just your grid region and a willingness to press start at the right time.
+          Sign up in seconds with
+          just your grid region and a willingness to start at the right time.
         </p>
         <button
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/sign-up")}
           style={{
             padding: "12px 32px",
             borderRadius: 10,
