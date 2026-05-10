@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useToken } from "../token";
 import img from "../image.png";
@@ -6,13 +6,18 @@ import img from "../image.png";
 
 export default function SignUp() {
   const { token, loading, error, getToken, populateToken, clearToken } = useToken();
+  
+  const backendUrl = "http://localhost:5000";
+  
   const [message, setMessage] = useState(null);
   const [newAccount, setNewAccount] = useState(token ? false : true);
   const [success, setSuccess] = useState(false)
-  const toggleNewAccount = () => setNewAccount(newAccount => !newAccount);
-  const backendUrl = "http://localhost:5000";
-
+  
+  const location = useLocation();
+  const transferMessage = location.state?.message;
   const navigate = useNavigate();
+  
+  const toggleNewAccount = () => setNewAccount(newAccount => !newAccount);
 
   useEffect(() => {
     if (success) {
@@ -84,7 +89,7 @@ export default function SignUp() {
         Log In
       </button>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error">{String(error)}</p>}
 
     </>
   </>)
@@ -145,12 +150,17 @@ export default function SignUp() {
         Sign Up
       </button>
       {loading && <p>Loading...</p>}
-      {error && <p style={{ color: "red" }}>{error}</p>}
+      {error && <p className="error">{String(error)}</p>}
 
     </>
   </>)
 
   return (<>
+    {
+      transferMessage ? 
+      <div className="card"><p className="error" style={{textAlign:"center"}}>{transferMessage}</p></div> 
+      : ""
+    }
     <div className="card">
       <h1>{newAccount ? "Log In" : "Sign Up"}</h1>
       {newAccount ? loginInfoGather : signUpInfoGather}

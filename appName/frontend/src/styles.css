@@ -13,6 +13,7 @@
   --primary: #0ea5a4;
   --accent: #f59e0b;
   --button-text: #ffffff;
+  --error-red: #B00020;
 }
 
 [data-theme="dark"] {
@@ -28,6 +29,7 @@
   --primary: #22d3ee;
   --accent: #fbbf24;
   --button-text: #082f35;
+  --error-red: #FF0000;
 }
 
 * {
@@ -209,4 +211,8 @@ button:hover {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: #dc2626;
+}
+
+.error {
+    color: var(--error-red)
 }

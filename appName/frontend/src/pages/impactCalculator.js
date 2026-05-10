@@ -22,6 +22,7 @@
 //   return (<div>impact</div>)}
 
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 
 // ─── Placeholder Data ─────────────────────────────────────────────────────────
 const USER_DATA = {
@@ -136,6 +137,12 @@ function FAQItem({ question, answer }) {
 
 // ─── Main Page ────────────────────────────────────────────────────────────────
 export default function Impact() {
+
+  if (!(localStorage.token)) {
+    let navigate = useNavigate()
+    console.log("attempted to move");
+    navigate("/log-in", {state: { message: "Please create an account to see your stats"}})}
+
   const [userData, setUserData] = useState(USER_DATA);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -214,7 +221,6 @@ export default function Impact() {
 
   return (
       <div style={{ maxWidth: 860, margin: "40px auto", padding: "0 20px 80px" }}>
-
         {/* ── Hero ── */}
         <div style={{ textAlign: "center", padding: "48px 0 52px" }}>
           <span className="passive" style={{
