@@ -10,9 +10,7 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   const backendUrl = "http://localhost:5000";
 
-
   const [theme, setTheme] = useState(() => {
-
     //Log In / Sign Up
     console.log("clicked");
     try {
@@ -29,36 +27,6 @@ export default function App() {
   }, [theme]);
 
 
-
-  // Token Holding
-  const [token, setToken] = useState(() => {
-    console.log(token ? token : "No token");
-    try {
-      return localStorage.getItem("token");
-    } catch (e) {
-      console.log(e);
-      return "";
-    }
-  });
-
-  async function getToken(info){
-    setLoading(true);
-    try {
-      const res = await fetch(backendUrl + "/hello", {
-        method: "Post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(info)
-      });
-      const data = await res.json();
-      setMessage(data.message);
-    } catch (err) {
-      setMessage("Error: could not reach backend");
-    } finally {
-      setLoading(false);
-    }
-  }
 
 
 
