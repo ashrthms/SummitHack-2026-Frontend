@@ -20,7 +20,7 @@ export default function Home() {
   }
 
   return (
-    <div style={{ maxWidth: 600, margin: "80px auto", textAlign: "center" }}>
+    <body>
       <h1>React + Flask + Docker</h1>
       <p>Your app is running! Click the button to call the Python backend.</p>
 
@@ -44,6 +44,6 @@ export default function Home() {
           Response: <strong>{message}</strong>
         </p>
       )}
-    </div>
+    </body>
   );
 }
