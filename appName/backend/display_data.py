@@ -2,7 +2,6 @@
 #   based on date user started + maybe appliances? we'll see
 
 import requests
-import nudge_user # import to get beginning of window and MOER @ that time
 
 SHIFTABLE_KWH = {
     "clothes_washer": 0.5,
@@ -15,6 +14,7 @@ SHIFTABLE_KWH = {
 DAILY_SHIFTABLE_KWH = sum(SHIFTABLE_KWH.values())
 
 # -- average daily emissions --
+
 
 # user saved emissions due to schedulable appliances
 # => this is the amount saved by a user by scheduling their appliances
@@ -45,7 +45,9 @@ def avg_daily_emission(region, TOKEN):
 
     return round(avg_total_emissions, 2)
 
+
 # -- average daily health impact --
+
 
 # user impact over the past day of health cost of local population
 # => this is the amount saved by a user by scheduling their appliances
@@ -75,4 +77,3 @@ def avg_daily_health_impact(region, TOKEN):
     avg_total_impact = (sum_values / count) * DAILY_SHIFTABLE_KWH / 1000
 
     return round(avg_total_impact, 2)
-

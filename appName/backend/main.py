@@ -1,22 +1,28 @@
+from db import add_user, get_user, init_db, login_user, table_exists
+from send_email import sendAllEmail
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from jwt import (
     ExpiredSignatureError,
+    InvalidIssuedAtError,
     InvalidKeyError,
     InvalidTokenError,
-    InvalidIssuedAtError,
 )
-from db import init_db, table_exists, login_user, add_user, get_user, update_emmisions
 
 app = Flask(__name__)
+CORS(app)
 
 
 # ── Example route ──────────────────────────────────────────
 # Visit http://localhost/hello  →  { "message": "Hello from Flask!" }
 @app.route("/hello")
 def hello():
-    update_emmisions("email@gmail", 4)
     return jsonify({"message": "Hello from Flask!"}), 200
+
+
+@app.route("/email")
+def send_emails():
+    return jsonify(sendAllEmail()), 200
 
 
 # ── Example: receive data from React ───────────────────────
@@ -35,11 +41,11 @@ def data():
 def login():
     data = request.get_json()
 
-    email = data.get("email")
+    email_1 = data.get("email")
     password = data.get("password")
 
     try:
-        token = login_user(email, password)
+        token = login_user(email_1, password)
     except (InvalidKeyError, InvalidTokenError) as e:
         return jsonify({"error": str(e)}), 401
 
@@ -50,11 +56,11 @@ def login():
 def create_user():
     data = request.get_json()
     name = data.get("name")
-    email = data.get("email")
+    email_1 = data.get("email")
     password = data.get("password")
     region = data.get("region")
     try:
-        response = add_user(name, email, password, region)
+        response = add_user(name, email_1, password, region)
     except InvalidIssuedAtError as e:
         return jsonify({"error": str(e)}), 401
     return jsonify(response), 200

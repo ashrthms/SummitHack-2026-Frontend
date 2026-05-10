@@ -7,7 +7,7 @@ WATT_PASS = os.getenv("SECRET_KEY")
 
 def __get_api__():
     login_url = "https://api.watttime.org/login"
-    rsp = requests.get(login_url, auth=HTTPBasicAuth("ella_f_richardson", WATT_PASS))
+    rsp = requests.get(login_url, auth=HTTPBasicAuth("ella_f_richardson", "123!frogg"))
     TOKEN = rsp.json()["token"]
     return TOKEN
 
@@ -41,13 +41,10 @@ def process_times(region):
         elif value != 0 and start is not None:
             intervals.append({"start": start, "end": entries[i - 1]["point_time"]})
             start = None
-        
+
     # close any interval that runs to the end of the forecast
     if start is not None:
-        intervals.append({
-            "start": start,
-            "end": entries[-1]["point_time"]
-        })
+        intervals.append({"start": start, "end": entries[-1]["point_time"]})
 
     intervals = [
         interval for interval in intervals if interval["start"] != interval["end"]
