@@ -359,8 +359,10 @@ export default function Home() {
           margin: "0 auto 28px",
         }}>
           This map shows the distribution of renewable energy generation across the
-          continental US. The darker the green region is, the larger the energy output 
-          of the area is composed of renewable energy.
+          continental US. The darker the green region is, the larger the percentage of grid energy
+          of the area is composed of renewable energy. Powercue reduces carbon-footprints most for users
+          who live in or around areas with more renewable energy. You can Use this map to gauge if it is
+          right for you.
         </p>
 
         {/* Image container — swap src for your actual heatmap image */}
