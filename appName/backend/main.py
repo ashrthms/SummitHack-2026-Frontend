@@ -1,5 +1,7 @@
 from db import add_user, get_user, init_db, login_user, table_exists
+from display_data import avg_daily_emission, avg_daily_health_impact
 from send_email import sendAllEmail
+from wattTime import __get_api__
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from jwt import (
@@ -22,8 +24,7 @@ def hello():
 
 @app.route("/email")
 def send_emails():
-    # sendAllEmail()
-    return jsonify({"message": "sending email"}), 200
+    return jsonify(sendAllEmail()), 200
 
 
 # ── Example: receive data from React ───────────────────────
@@ -95,7 +96,17 @@ def show_emis_data():
         user = get_user(token)
     except (InvalidTokenError, ExpiredSignatureError, InvalidIssuedAtError) as e:
         return jsonify({"error": str(e)}), 401
-    return jsonify({"avgEmSaved": user["all_emis_saved"]}), 200
+    region = user["region"]
+    api_key = __get_api__()
+    daily_carbon = avg_daily_emission(region, api_key)
+    daily_health = avg_daily_health_impact(region, api_key)
+    return jsonify(
+        {
+            "avgEmSaved": user["all_emis_saved"],
+            "daily_carbon": daily_carbon,
+            "daily_health": daily_health,
+        }
+    ), 200
 
 
 # ── Add your own routes below ───────────────────────────────
