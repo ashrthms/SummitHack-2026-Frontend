@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useToken } from "../token";
+import img from "../image.png";
 
 
 export default function SignUp() {
@@ -146,7 +147,7 @@ export default function SignUp() {
     </div>{success &&
     <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
       <img
-        src="image.png"
+        src={img}
         alt="Email link"
         onClick={handleEmailClick}
         style={{ maxWidth: "160px", cursor: "pointer" }}

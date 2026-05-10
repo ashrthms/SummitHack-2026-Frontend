@@ -89,7 +89,7 @@ def show_user():
 
 @app.route("/user-savings", methods=["Post"])
 def show_emis_data():
-    data = request.get_json("name")
+    data = request.get_json()
     token = data.get("token")
     try:
         user = get_user(token)
