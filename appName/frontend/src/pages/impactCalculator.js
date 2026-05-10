@@ -19,4 +19,6 @@ export default function ImpactCalculator() {
     }
   }
 
-  return (<div>impact</div>)}
+  return (
+    <card><h1>Impact Calculator</h1></card>
+  )}

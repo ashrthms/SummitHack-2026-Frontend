@@ -7,6 +7,7 @@ from jwt import (
     InvalidIssuedAtError,
 )
 from db import init_db, table_exists, login_user, add_user, get_user
+from wattTime import __get_api___;
 
 app = Flask(__name__)
 
@@ -77,6 +78,19 @@ def show_user():
         }
     ), 200
 
+@app.route("/user-savings", methods=["Post"])
+def show_emis_data():
+    data = request.get_json("name")
+    token = data.get("token")
+    try:
+        user = get_user(token)
+    except (InvalidTokenError, ExpiredSignatureError, InvalidIssuedAtError) as e:
+        return jsonify({"error": str(e)}), 401
+    return jsonify(
+        {
+            "avgEmSaved" : user.allSaved
+        }
+    )
 
 # ── Add your own routes below ───────────────────────────────
 # Example: call an external API

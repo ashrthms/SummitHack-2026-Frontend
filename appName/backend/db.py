@@ -32,7 +32,8 @@ def init_db():
             name TEXT,
             email TEXT,
             region TEXT,
-            password_hash TEXT
+            password_hash TEXT,
+            all_emis_saved INTEGER
         )
     """
     )
@@ -85,7 +86,7 @@ def __get_user_by_id__(user_id):
     cur = conn.cursor()
 
     cur.execute(
-        "SELECT user_id, name, email, region FROM users WHERE user_id = ?",
+        "SELECT user_id, name, email, region, all_emis_saved FROM users WHERE user_id = ?",
         (user_id,),
     )
 
@@ -138,10 +139,10 @@ def add_user(name: str, email: str, password: str, region: str):
 
     cur.execute(
         """
-        INSERT INTO users (name, email, region, password_hash)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO users (name, email, region, password_hash, all_emis_saved)
+        VALUES (?, ?, ?, ?, ?)
         """,
-        (name, email, region, password_hash),
+        (name, email, region, password_hash, 0),
     )
 
     conn.commit()
