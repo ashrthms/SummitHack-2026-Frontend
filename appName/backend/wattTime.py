@@ -1,34 +1,24 @@
 import requests
 from requests.auth import HTTPBasicAuth
+import os
+
+WATT_PASS = os.getenv("SECRET_KEY")
 
 
 def __get_api__():
     login_url = "https://api.watttime.org/login"
-    rsp = requests.get(login_url, auth=HTTPBasicAuth("ella_f_richardson", "123!frogg"))
+    rsp = requests.get(login_url, auth=HTTPBasicAuth("ella_f_richardson", WATT_PASS))
     TOKEN = rsp.json()["token"]
-
-
-# gets region from lat and long:
-def get_region(latitude, longitude, TOKEN):
-    url = "https://api.watttime.org/v3/region-from-loc"
-    headers = {"Authorization": f"Bearer {TOKEN}"}
-    params = {"latitude": latitude, "longitude": longitude, "signal_type": "co2_moer"}
-    response = requests.get(url, headers=headers, params=params)
-    response.raise_for_status()
-
-    data = response.json()
-    region = data[list(data.keys())[0]]
-    return region
+    return TOKEN
 
 
 # sends user times when using heavy appliances is recommended
-# input : region, API TOKEN
+# input : region, API
 # output : list of times when using heavy appliances is recommended
 #   (when carbon intensity is 0.0)
-def process_times(region, TOKEN):
-
+def process_times(region):
     url = "https://api.watttime.org/v3/forecast"
-    headers = {"Authorization": f"Bearer {TOKEN}"}
+    headers = {"Authorization": f"Bearer {__get_api__()}"}
     params = {"region": region, "signal_type": "co2_moer", "horizon_hours": 72}
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()
