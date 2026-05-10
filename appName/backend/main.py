@@ -9,7 +9,6 @@ from jwt import (
 from db import init_db, table_exists, login_user, add_user, get_user
 
 app = Flask(__name__)
-CORS(app)  # Allows React to call this API
 
 
 # ── Example route ──────────────────────────────────────────
