@@ -1,3 +1,4 @@
+import img from "../image.png";
 // import { useState } from "react";
 
 // export default function ImpactCalculator() {
@@ -23,6 +24,17 @@
 
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
+
+  const handleEmailClick = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/email", {
+        method: "GET",
+      });
+      console.log("Response status:", res.status);
+    } catch (error) {
+      console.error("Email request failed:", error);
+    }
+  };
 
 // ─── Placeholder Data ─────────────────────────────────────────────────────────
 const USER_DATA = {
@@ -167,7 +179,7 @@ export default function Impact() {
         dailyCarbonSaved_lbs: data.daily_carbon || 0,
         totalCarbonSaved_lbs: data.all_carbon || 0,
         dailyVSL_dollars: data.daily_health || 0,
-        totalRegionVSL_dollars: data.all_carbon || 0,
+        totalRegionVSL_dollars: data.daily_health || 0,
         startDate: "2026-01-01",
         region: "CAISO_NORTH",
       });
@@ -287,7 +299,7 @@ export default function Impact() {
           />
           <StatCard
             label={`Region health impact · ${d.region}`}
-            value={`$${fmt(d.totalRegionVSL_dollars)}`}
+            value={`$${fmt(d.dailyVSL_dollars * 365)}`}
             unit="VSL equiv."
             sub="All users in your region combined today"
           />
@@ -394,7 +406,14 @@ export default function Impact() {
           </a>.
           {" "}Health damage figures use EPA VSL methodology. Appliance figures are US national averages.
         </p>
-
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+          <img
+            src={img}
+            alt="Email link"
+            onClick={handleEmailClick}
+            style={{ maxWidth: "160px", cursor: "pointer" }}
+          />
+        </div>
       </div>
     );
   }

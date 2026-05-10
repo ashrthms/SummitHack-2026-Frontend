@@ -103,7 +103,7 @@ def show_emis_data():
     daily_health = avg_daily_health_impact(region, api_key)
     return jsonify(
         {
-            "avgEmSaved": user["all_emis_saved"],
+            "all_carbon": user["all_emis_saved"],
             "daily_carbon": daily_carbon,
             "daily_health": daily_health,
         }

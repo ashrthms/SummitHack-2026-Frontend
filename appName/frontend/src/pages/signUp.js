@@ -1,7 +1,6 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useToken } from "../token";
-import img from "../image.png";
 
 
 export default function SignUp() {
@@ -48,16 +47,6 @@ export default function SignUp() {
     }))
   };
 
-  const handleEmailClick = async () => {
-    try {
-      const res = await fetch("http://localhost:5000/email", {
-        method: "GET",
-      });
-      console.log("Response status:", res.status);
-    } catch (error) {
-      console.error("Email request failed:", error);
-    }
-  };
 
 
 
@@ -165,15 +154,6 @@ export default function SignUp() {
       <h1>{newAccount ? "Log In" : "Sign Up"}</h1>
       {newAccount ? loginInfoGather : signUpInfoGather}
       <hr />
-      <button onClick={toggleNewAccount} className="secondaryButton">{newAccount ? "Sign Up" : "Log In"}</button>
-    </div>{success &&
-      <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
-        <img
-          src={img}
-          alt="Email link"
-          onClick={handleEmailClick}
-          style={{ maxWidth: "160px", cursor: "pointer" }}
-        />
-      </div>}
+      <button onClick={toggleNewAccount} className="secondaryButton">{newAccount ? "Sign Up" : "Log In"}</button></div>
   </>)
 }
