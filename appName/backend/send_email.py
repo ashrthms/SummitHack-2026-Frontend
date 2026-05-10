@@ -3,8 +3,20 @@ import resend
 from wattTime import process_times, __get_api__
 from display_data import avg_daily_emission
 from db import get_all_users, update_emmisions
+from datetime import datetime
+from zoneinfo import ZoneInfo
 
 RESEND_API_KEY = os.getenv("RESEND_API_KEY")
+
+
+def format_time(iso_time, type):
+    # Parse ISO timestamp
+    dt = datetime.fromisoformat(iso_time)
+    local_dt = dt.astimezone(ZoneInfo("America/Denver"))
+    if type == 0:
+        return local_dt.strftime("%m/%d %-I:%M%p").lower()
+    else:
+        return local_dt.strftime("%-I:%M%p").lower()
 
 
 def sendEmail(user, timesHTML):
@@ -44,7 +56,7 @@ def sendAllEmail():
         times = process_times(region)
         timeHTML = ""
         for time in times:
-            timeHTML += f"<li>{time['start']} -> {time['end']}</li>"
+            timeHTML += f"<li>{format_time(time['start'], 0)} - {format_time(time['end'], 1)}</li>"
 
         for user in users:
             if str(user["region"]) == str(region):
