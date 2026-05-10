@@ -1,50 +1,53 @@
-import { useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Home from "./pages/home";
+import About from "./pages/about";
+import SignUp from "./pages/signUp";
+import ImpactCalculator from "./pages/impactCalculator";
+import { useState, useEffect } from "react";
+import "./styles.css";
 
 export default function App() {
-  const [message, setMessage] = useState(null);
-  const [loading, setLoading] = useState(false);
-
+  const [loading, setLoading] = useState(false)
   const backendUrl = "http://localhost:5000";
 
-  // Calls Flask directly on its exposed port.
-  async function callBackend() {
-    setLoading(true);
+  const [theme, setTheme] = useState(() => {
+    //Log In / Sign Up
+    console.log("clicked");
     try {
-      const res = await fetch(backendUrl + "/hello");
-      const data = await res.json();
-      setMessage(data.message);
-    } catch (err) {
-      setMessage("Error: could not reach backend");
-    } finally {
-      setLoading(false);
+      return localStorage.getItem("theme") || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    } catch (e) {
+      console.log(e);
+      return "light";
     }
-  }
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+    try { localStorage.setItem("theme", theme); } catch (e) {}
+  }, [theme]);
+
+
+
+
 
   return (
-    <div style={{ fontFamily: "sans-serif", maxWidth: 600, margin: "80px auto", textAlign: "center" }}>
-      <h1>React + Flask + Docker</h1>
-      <p>Your app is running! Click the button to call the Python backend.</p>
+    <BrowserRouter>
+      <nav>
+        <Link to="/" >Home</Link>
+        <Link to="/about" >About Us</Link>
+        <Link to="/sign-up" >Sign Up</Link>
+        <Link to="/impact-calculator" >Impact Calculator</Link>
+        <div className="spacer" />
+        <button className="theme-toggle" onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} />
+      </nav>
 
-      <button
-        onClick={callBackend}
-        style={{
-          padding: "12px 28px",
-          fontSize: 16,
-          borderRadius: 8,
-          border: "none",
-          background: "#2563eb",
-          color: "white",
-          cursor: "pointer",
-        }}
-      >
-        {loading ? "Calling API..." : "Call Flask API"}
-      </button>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/impact-calculator" element={<ImpactCalculator />} />
+      </Routes>
 
-      {message && (
-        <p style={{ marginTop: 24, padding: 16, background: "#f0fdf4", borderRadius: 8, color: "#166534" }}>
-          Response: <strong>{message}</strong>
-        </p>
-      )}
-    </div>
-  );
+    </BrowserRouter>
+  )
 }
