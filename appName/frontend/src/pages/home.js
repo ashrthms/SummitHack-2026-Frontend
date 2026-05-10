@@ -179,7 +179,7 @@ export default function Home() {
 
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
           <button
-            onClick={() => navigate("/signup")}
+            onClick={() => navigate("/sign-up")}
             style={{
               padding: "12px 28px",
               borderRadius: 10,
@@ -263,7 +263,7 @@ export default function Home() {
           Sign in to see what your footprint looks like!
         </p>
         <button
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/sign-up")}
           style={{
             padding: "11px 26px",
             borderRadius: 10,
@@ -442,11 +442,11 @@ export default function Home() {
           maxWidth: 420,
           margin: "0 auto 28px",
         }}>
-          Sign up in seconds. No devices to connect, no data to enter —
-          just your grid region and a willingness to press start at the right time.
+          Sign up in seconds with
+          just your grid region and a willingness to start at the right time.
         </p>
         <button
-          onClick={() => navigate("/signup")}
+          onClick={() => navigate("/sign-up")}
           style={{
             padding: "12px 32px",
             borderRadius: 10,
