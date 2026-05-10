@@ -13,7 +13,7 @@ export default function SignUp() {
     const password = document.getElementById('password').value;
     const email = document.getElementById('email').value;
     getToken({
-      "email": password,
+      "email": email,
       "password": password
     })
   };
