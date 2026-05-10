@@ -25,7 +25,7 @@ export default function About() {
                 Your dishwasher is a bigger pollutant at 6:17pm than it is at midnight. It's not 
                 broken — it's how the electric grid works. At peak hours, fossil fuel plants ramp
                 up to meet the needs of the grid. At other times, surplus renewable energy goes 
-                to waste. PowerCueue tells you when to run your heavy appliances so they use that 
+                to waste. PowerCue tells you when to run your heavy appliances so they use that 
                 clean energy instead.
             </p>
 
