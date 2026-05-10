@@ -2,11 +2,7 @@
 # health impact in $/MWh - based on statistical value of a life
 
 import requests
-
-# -- user data --
-
-def user_health_impact(region, date):
-    return
+import display_data
 
 # -- avg data --
 
