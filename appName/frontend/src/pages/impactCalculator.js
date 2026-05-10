@@ -174,7 +174,7 @@ export default function Impact() {
 
   // On mount, fetch data (pass empty token for now)
   useEffect(() => {
-    userSavings({});
+    userSavings({token: localStorage.token});
   }, []);
 
   const d = userData;
@@ -271,11 +271,11 @@ export default function Impact() {
             label="Total CO₂ saved"
             value={fmt(d.totalCarbonSaved_lbs)}
             unit="lbs CO₂"
-            sub={`Since ${d.startDate}`}
+            sub={`Since you started`}
           />
           <StatCard
-            label="Health harm avoided today"
-            value={`$${fmt(d.dailyVSL_dollars, 2)}`}
+            label="Health harm avoided this year"
+            value={`$${fmt(d.dailyVSL_dollars*365, 2)}`}
             unit="VSL equiv."
             sub="Based on EPA value of a statistical life"
           />

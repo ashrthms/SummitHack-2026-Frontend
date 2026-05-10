@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { useToken } from "../token";
 import img from "../image.png";
 
@@ -10,6 +11,15 @@ export default function SignUp() {
   const [success, setSuccess] = useState(false)
   const toggleNewAccount = () => setNewAccount(newAccount => !newAccount);
   const backendUrl = "http://localhost:5000";
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (success) {
+      navigate('/impact-calculator');
+    }
+  }, [success, navigate]); // Include navigate in dependencies
+
 
   const handleLogin = async () => {
     const password = document.getElementById('password').value;
@@ -43,6 +53,8 @@ export default function SignUp() {
       console.error("Email request failed:", error);
     }
   };
+
+
 
   const loginInfoGather = (<>
     <div className="miniCard">
@@ -145,13 +157,13 @@ export default function SignUp() {
       <hr />
       <button onClick={toggleNewAccount} className="secondaryButton">{newAccount ? "Sign Up" : "Log In"}</button>
     </div>{success &&
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
-      <img
-        src={img}
-        alt="Email link"
-        onClick={handleEmailClick}
-        style={{ maxWidth: "160px", cursor: "pointer" }}
-      />
-    </div>}
+      <div style={{ display: "flex", justifyContent: "center", marginTop: "24px" }}>
+        <img
+          src={img}
+          alt="Email link"
+          onClick={handleEmailClick}
+          style={{ maxWidth: "160px", cursor: "pointer" }}
+        />
+      </div>}
   </>)
 }
