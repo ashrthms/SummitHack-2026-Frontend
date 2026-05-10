@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import user_location
 import nudge_user
+import display_data
 
 app = Flask(__name__)
 CORS(app)  # Allows React to call this API
@@ -25,7 +26,8 @@ login_url = 'https://api.watttime.org/login'
 rsp = requests.get(login_url, auth=HTTPBasicAuth('ella_f_richardson', '123!frogg'))
 TOKEN = rsp.json()['token']
 
-print(nudge_user.process_times("CAISO_NORTH", TOKEN))
+
+print(display_data.avg_daily_emission("CAISO_NORTH", TOKEN))
 
 
 if __name__ == "__main__":

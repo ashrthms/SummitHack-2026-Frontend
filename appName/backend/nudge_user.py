@@ -13,7 +13,7 @@ def process_times(region, TOKEN):
     params = {
         "region": region,
         "signal_type": "co2_moer",
-        "horizon_hours": 72
+        "horizon_hours": 24
     }
     response = requests.get(url, headers=headers, params=params)
     response.raise_for_status()
@@ -40,12 +40,19 @@ def process_times(region, TOKEN):
                 "end": entries[i - 1]["point_time"]
             })
             start = None
+        
+    # close any interval that runs to the end of the forecast
+    if start is not None:
+        intervals.append({
+            "start": start,
+            "end": entries[-1]["point_time"]
+        })
 
     intervals = [
         interval
         for interval in intervals
             if interval["start"] != interval["end"]
-]
+    ]
 
     # intervals where user should use heavy electronics
     return intervals
