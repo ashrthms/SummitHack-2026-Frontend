@@ -27,7 +27,8 @@ export function useToken() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(backendUrl + "/create-user", {
+      console.log('alksjdslj');
+      const res = await fetch(backendUrl + "/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -47,12 +48,13 @@ export function useToken() {
 
   // Fetch token and store it
   const populateToken = async (info) => {
+    console.log(info);
     let newToken;
     console.log("Fetching token with info")
     setLoading(true);
     setError(null);
     try {
-        const res = await fetch(backendUrl + "/login", {
+        const res = await fetch(backendUrl + "/create-user", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
