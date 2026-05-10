@@ -17,8 +17,10 @@ services:
     build: ./backend
     volumes:
       - ./backend:/app
+      - ./data:/data
     environment:
       - FLASK_ENV=development
+      - DB_PATH=/data/app.db
     # Add your secret API keys here, e.g:
     # - OPENAI_API_KEY=your_key_here
 
@@ -31,3 +33,6 @@ services:
     depends_on:
       - frontend
       - backend
+
+volumes:
+  data: {}
