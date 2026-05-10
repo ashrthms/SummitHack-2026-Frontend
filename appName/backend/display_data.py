@@ -3,7 +3,7 @@
 
 import requests
 
-# -- user data
+# -- user data -- 
 
 # user emission since start date if they're following recomendations
 def user_emission(region, date):

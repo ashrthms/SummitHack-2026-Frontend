@@ -25,7 +25,7 @@ login_url = 'https://api.watttime.org/login'
 rsp = requests.get(login_url, auth=HTTPBasicAuth('ella_f_richardson', '123!frogg'))
 TOKEN = rsp.json()['token']
 
-nudge_user.process_times("CAISO_NORTH", TOKEN)
+print(nudge_user.process_times("CAISO_NORTH", TOKEN))
 
 
 if __name__ == "__main__":
