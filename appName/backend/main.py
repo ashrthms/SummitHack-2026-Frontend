@@ -6,7 +6,7 @@ from jwt import (
     InvalidTokenError,
     InvalidIssuedAtError,
 )
-from db import init_db, table_exists, login_user, add_user, get_user
+from db import init_db, table_exists, login_user, add_user, get_user, update_emmisions
 
 app = Flask(__name__)
 
@@ -15,6 +15,7 @@ app = Flask(__name__)
 # Visit http://localhost/hello  →  { "message": "Hello from Flask!" }
 @app.route("/hello")
 def hello():
+    update_emmisions("email@gmail", 4)
     return jsonify({"message": "Hello from Flask!"}), 200
 
 
@@ -74,8 +75,20 @@ def show_user():
             "name": user.get("name"),
             "email": user.get("email"),
             "region": user.get("region"),
+            "total_saved": user.get("all_emis_saved"),
         }
     ), 200
+
+
+@app.route("/user-savings", methods=["Post"])
+def show_emis_data():
+    data = request.get_json("name")
+    token = data.get("token")
+    try:
+        user = get_user(token)
+    except (InvalidTokenError, ExpiredSignatureError, InvalidIssuedAtError) as e:
+        return jsonify({"error": str(e)}), 401
+    return jsonify({"avgEmSaved": user["all_emis_saved"]}), 200
 
 
 # ── Add your own routes below ───────────────────────────────
@@ -85,7 +98,6 @@ def show_user():
 # def weather():
 #     response = req.get("https://api.openweathermap.org/...")
 #     return jsonify(response.json())
-
 
 if __name__ == "__main__":
     init_db()

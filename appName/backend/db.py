@@ -32,7 +32,8 @@ def init_db():
             name TEXT,
             email TEXT,
             region TEXT,
-            password_hash TEXT
+            password_hash TEXT,
+            all_emis_saved INTEGER
         )
     """
     )
@@ -85,7 +86,7 @@ def __get_user_by_id__(user_id):
     cur = conn.cursor()
 
     cur.execute(
-        "SELECT user_id, name, email, region FROM users WHERE user_id = ?",
+        "SELECT user_id, name, email, region, all_emis_saved FROM users WHERE user_id = ?",
         (user_id,),
     )
 
@@ -96,6 +97,33 @@ def __get_user_by_id__(user_id):
         raise InvalidKeyError("There is no user with that user id")
 
     return dict(row)
+
+
+def update_emmisions(email, to_add):
+    conn = get_connection()
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE users SET all_emis_saved = all_emis_saved + ? WHERE email = ?",
+        (
+            to_add,
+            email,
+        ),
+    )
+    conn.commit()
+    conn.close()
+
+
+def get_all_users():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    cur.execute("SELECT * FROM users")
+
+    rows = cur.fetchall()
+
+    conn.close()
+
+    return [dict(row) for row in rows]
 
 
 def login_user(email, password):
@@ -138,10 +166,16 @@ def add_user(name: str, email: str, password: str, region: str):
 
     cur.execute(
         """
-        INSERT INTO users (name, email, region, password_hash)
-        VALUES (?, ?, ?, ?)
+        INSERT INTO users (name, email, region, password_hash, all_emis_saved)
+        VALUES (?, ?, ?, ?, ?)
         """,
-        (name, email, region, password_hash),
+        (
+            name,
+            email,
+            region,
+            password_hash,
+            0,
+        ),
     )
 
     conn.commit()
