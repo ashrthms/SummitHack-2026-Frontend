@@ -35,7 +35,7 @@ export default function App() {
       <nav>
         <Link to="/" >Home</Link>
         <Link to="/about" >About Us</Link>
-        <Link to="/sign-up" >Sign Up</Link>
+        <Link to="/log-in" >Log In</Link>
         <Link to="/impact-calculator" >Impact Calculator</Link>
         <div className="spacer" />
         <button className="theme-toggle" onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))} />
@@ -44,7 +44,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/log-in" element={<SignUp />} />
         <Route path="/impact-calculator" element={<ImpactCalculator />} />
       </Routes>
 
