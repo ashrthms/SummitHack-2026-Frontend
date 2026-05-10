@@ -6,8 +6,7 @@ from jwt import (
     InvalidTokenError,
     InvalidIssuedAtError,
 )
-from db import init_db, table_exists, login_user, add_user, get_user
-from wattTime import __get_api___;
+from db import init_db, table_exists, login_user, add_user, get_user, update_emmisions
 
 app = Flask(__name__)
 
@@ -16,6 +15,7 @@ app = Flask(__name__)
 # Visit http://localhost/hello  →  { "message": "Hello from Flask!" }
 @app.route("/hello")
 def hello():
+    update_emmisions("email@gmail", 4)
     return jsonify({"message": "Hello from Flask!"}), 200
 
 
@@ -75,8 +75,10 @@ def show_user():
             "name": user.get("name"),
             "email": user.get("email"),
             "region": user.get("region"),
+            "total_saved": user.get("all_emis_saved"),
         }
     ), 200
+
 
 @app.route("/user-savings", methods=["Post"])
 def show_emis_data():
@@ -86,11 +88,8 @@ def show_emis_data():
         user = get_user(token)
     except (InvalidTokenError, ExpiredSignatureError, InvalidIssuedAtError) as e:
         return jsonify({"error": str(e)}), 401
-    return jsonify(
-        {
-            "avgEmSaved" : user.allSaved
-        }
-    )
+    return jsonify({"avgEmSaved": user["all_emis_saved"]}), 200
+
 
 # ── Add your own routes below ───────────────────────────────
 # Example: call an external API
@@ -99,7 +98,6 @@ def show_emis_data():
 # def weather():
 #     response = req.get("https://api.openweathermap.org/...")
 #     return jsonify(response.json())
-
 
 if __name__ == "__main__":
     init_db()
