@@ -11,20 +11,20 @@ export default function SignUp() {
 
   const handleLogin = () => {
     const password = document.getElementById('password').value;
-    const username = document.getElementById('username').value;
+    const name = document.getElementById('name').value;
     getToken({
-      "username": username,
+      "name": name,
       "password": password
     })
   };
   const handleSignUp = () => {
     const password = document.getElementById('password').value;
-    const username = document.getElementById('username').value;
+    const name = document.getElementById('name').value;
     const region = document.getElementById('region').value;
     const email = document.getElementById('email').value;
-    console.log(username,password,email,region);
+    console.log(name,password,email,region);
     populateToken({
-      "username": username,
+      "name": name,
       "password": password,
       "region": region,
       "email": email
@@ -50,13 +50,13 @@ export default function SignUp() {
     <h1>Log In</h1>
     <>
       <input type="text"
-        id="username"
+        id="name"
         name="u"
         required
         minLength="4"
         maxLength="16"
         size="10em"
-        placeholder="Username" />
+        placeholder="Name" />
     </>
     <>
       <input type="text"
@@ -80,13 +80,13 @@ export default function SignUp() {
   const signUpInfoGather = (<>
     <>
       <input type="text"
-        id="username"
+        id="name"
         name="u"
         required
         minLength="4"
         maxLength="16"
         size="10em"
-        placeholder="Username" />
+        placeholder="Name" />
     </>
     <>
       <input type="text"
@@ -96,7 +96,7 @@ export default function SignUp() {
         minLength="4"
         maxLength="16"
         size="10em"
-        placeholder="Pasword" />
+        placeholder="Password" />
     </>
     <>
       <input type="text"

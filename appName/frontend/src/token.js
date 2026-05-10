@@ -54,7 +54,7 @@ export function useToken() {
     setLoading(true);
     setError(null);
     try {
-        const res = await fetch(backendUrl + "/create-user", {
+        const res = await fetch(backendUrl + "/echo", {
         method: "POST",
         headers: {
         "Content-Type": "application/json",
